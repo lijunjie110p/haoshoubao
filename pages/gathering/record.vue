@@ -8,11 +8,11 @@
 		<mescroll-body :height="scrollerHeight" ref="mescrollRef" @init="mescrollInit" :up="upOption" @down="downCallback"
 		 :down="downOption" @up="upCallback">
 			<view class="u-border-bottom white-bg u-padding-30 u-flex u-row-between u-col-center" v-for="(item,index) in data" :key="index">
-				<u-image width="70rpx" height="70rpx" shape="circle" v-if="type==2" :src="item.reach_card_info.bank_icon"></u-image>
+				<u-image width="70rpx" height="70rpx" shape="circle" v-if="type==2|| item.pay_channel == '54'" :src="item.reach_card_info.bank_icon"></u-image>
 				<u-image width="70rpx" height="70rpx" shape="circle" v-else :src="item.pay_card_info.bank_icon"></u-image>
 				<view class="u-flex-1 u-margin-left-30">
 					<view class="u-flex u-row-between">
-						<text class="u-main-color u-font-28" v-if="type==2">{{item.reach_card_info.bank_name}}  尾号{{item.reach_card_info.card_no_foot}}</text>
+						<text class="u-main-color u-font-28" v-if="type==2 || item.pay_channel == '54'">{{item.reach_card_info.bank_name}}  尾号{{item.reach_card_info.card_no_foot}}</text>
 						<text class="u-main-color u-font-28" v-else>{{item.pay_card_info.bank_name}}  尾号{{item.pay_card_info.card_no_foot}}</text>
 						<text class="main-color u-font-36" :style="{color:type==3?'#FF0000':'#FFBA37'}">+{{item.amount}}</text>
 					</view>
@@ -63,14 +63,13 @@
 					empty: {
 						tip: '~ 搜索无数据 ~'
 					},
-					textNoMore: '已经到底了',
+					textNoMore: '没有更多数据了',
 					auto: false,
 				},
 				downOption: {
 					auto: false
 				},
 				page:1,
-				isTop: true,
 				type:1
 			};
 		},
@@ -110,15 +109,10 @@
 					}
 				})
 				if (res.data.status == 1) {
+					this.mescroll.endSuccess(res.data.body.forword_list.length);
 					if (this.page == 1) this.data = [];
-					
 					this.serviceData = res.data.body.service;
 					this.data = this.data.concat(res.data.body.forword_list)
-					let currlen = 0;
-					for (var i in this.data) {
-						currlen++
-					}
-					this.mescroll.endSuccess(currlen);
 				}else {
 					uni.showToast({
 						title: res.data.info,
@@ -130,18 +124,14 @@
 				this.data = [];
 				this.type = index+1;
 				this.tabsIndex = index;
-				this.initData()
+				this.mescroll.resetUpScroll();
 			},
 			//下拉刷新
 			downCallback() {
-				this.isTop = true;
-				this.data = []
-				this.page = 1;
-				this.initData();
+				this.mescroll.resetUpScroll();
 			},
 			//上拉加载
 			upCallback(page) {
-				this.isTop = false;
 				this.page = page.num;
 				this.initData()
 			},
@@ -157,5 +147,10 @@
 		padding: 30rpx;
 		background: #FFF;
 		
+	}
+	.tabs{
+		position: sticky;
+		top: 0;
+		z-index: 999;
 	}
 </style>

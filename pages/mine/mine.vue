@@ -53,20 +53,6 @@
 				</u-grid>
 			</view>
 		</view>
-		<u-popup :safe-area-inset-bottom="true" border-radius="15" :closeable="true" v-model="showSecurity" mode="bottom"
-		 length="80%">
-			<view class="lock-tips">
-				<view class="big-tips" :style="[needAuthenticate&&!pwdError?{color:'#999999'}:needAuthenticate&&pwdError?{color:'#FF0000'}:{color:''}]">{{text}}</view>
-				<view class="small-tips" v-if="lockType == 2 || (lockType == 3 && !needAuthenticate)">请牢记您的密码，忘记后将无法找回</view>
-			</view>
-			<view class="container-lock">
-				<mpvue-gesture-lock ref="mpvueGestureLock" :containerWidth="screenWidth" :cycleRadius="30" @end="onEnd" :password="password"></mpvue-gesture-lock>
-			</view>
-			<view class="container-confirm" v-if="showLockConfirm">
-				<view class="lock-reset" @click="resetLock">重绘</view>
-				<view :class="[confirmEnable?'':'disable-confirm']" @click="lockConfirm">确认</view>
-			</view>
-		</u-popup>
 	</view>
 </template>
 
@@ -90,19 +76,6 @@
 					date: ''
 				},
 				service_model: {},
-				showSecurity: false,
-				password: [],
-				screenWidth: '', //屏幕宽度
-				screenHeight: '', //屏幕高度
-				lockType: 1, //手势锁认证类型（1-解锁、2、注册、3-修改）
-				needAuthenticate: true, //是否需要认证（解锁、修改需要和设定好的密码做认证）
-				pwdError: false, //手势认证是否通过
-				showLockConfirm: false, //是否显示确认
-				text: '绘制你的手势图案，至少连接4个点',
-				confirmEnable: false, //是否确认可点击
-				errorTimes: 0, //认证失败次数(限制)
-				maxErrorTimes: 100, //最多可以失败几次
-				serverPwd: '', //用以验证的密码
 				interval: '',
 				maxtime: 300, //倒计时300秒
 				needRz: true
@@ -111,7 +84,6 @@
 		onLoad() {
 			this.message.date = this.$u.timeFormat(new Date(), 'mm-dd');
 			this.initData();
-			this.getScreenHeight();
 		},
 		onShow() {
 			this.needRz = this.checkedSecurity;
@@ -122,15 +94,10 @@
 			this.initData();
 		},
 		computed: {
-			...mapState(['hasLogin', 'userInfo','checkedSecurity'])
+			...mapState(['hasLogin', 'userInfo', 'checkedSecurity'])
 		},
 		methods: {
 			...mapMutations(['login']),
-			getScreenHeight() {
-				//测量屏幕宽度（得到的是px单位）
-				const deviceInfo = uni.getSystemInfoSync();
-				this.screenWidth = deviceInfo.screenWidth;
-			},
 			async getmessage() {
 				let res = await this.http.request({
 					api_source: 'app',
@@ -141,6 +108,14 @@
 						uid: this.userInfo.uid,
 					}
 				})
+				if (res.data.status == 1) {
+					// console.log(res.data.body)
+				} else {
+					uni.showToast({
+						title: res.data.info,
+						icon: "none"
+					})
+				}
 			},
 			async initData() {
 
@@ -186,11 +161,11 @@
 							this.service_model[i].jumpurl = '../setting/setting'
 						} else if (this.service_model[i].param_id == 101) {
 							this.service_model[i].jumpurl = '../setting/account'
-						}else if (this.service_model[i].param_id == 115) {
+						} else if (this.service_model[i].param_id == 115) {
 							this.service_model[i].jumpurl = 'videoList'
-						}else if (this.service_model[i].param_id == 117) {
+						} else if (this.service_model[i].param_id == 117) {
 							this.service_model[i].jumpurl = '../card/card'
-						}else if (this.service_model[i].param_id == 118) {
+						} else if (this.service_model[i].param_id == 118) {
 							this.service_model[i].jumpurl = '../business/applyCard'
 						}
 					}
@@ -294,7 +269,7 @@
 					})
 				}
 			},
-			toWallet(url){
+			toWallet(url) {
 				this.maxtime = 300; //解锁成功后5分钟内不用再解锁
 				this.interval = setInterval(() => {
 					if (this.maxtime >= 0) {
@@ -307,184 +282,9 @@
 					}
 				}, 1000)
 				uni.navigateTo({
-					url:url
+					url: url
 				})
 			},
-			async onEnd(data) {
-				/* ************首次绘制************ */
-				this.password = data;
-				if (this.lockType == 1) {
-					//1、登录
-					if (!this.overFailedTimes()) {
-						//解锁
-						console.log("密码：" + this.password.join(''));
-						try {
-							let res = await this.http.request({
-								api_source: 'app',
-								uri: '/Basic/contrast',
-								method: 'POST',
-								device: 'web',
-								data: {
-									uid: this.userInfo.uid,
-									safe_lock: this.password.join('')
-								}
-							})
-							if (res.data.status == 1) {
-								this.text = '解锁成功';
-								this.needAuthenticate = false;
-								this.showSecurity = false;
-								this.maxtime = 300; //解锁成功后5分钟内不用再解锁
-								this.interval = setInterval(() => {
-									if (this.maxtime >= 0) {
-										this.maxtime--
-										this.needRz = false;
-									} else {
-										this.maxtime = 300
-										this.needRz = true;
-										clearInterval(this.interval)
-									}
-								}, 1000)
-								uni.navigateTo({
-									url: '../wallet/wallet'
-								})
-
-							} else {
-								uni.showToast({
-									title: res.data.info,
-									icon: "none"
-								})
-								this.certificationFailed();
-							}
-
-						} catch (e) {
-
-
-						}
-						this.password = [];
-					}
-				} else if (this.lockType == 2) {
-					//2、注册
-					this.firstDraw();
-				} else if (this.lockType == 3) {
-					//3、修改密码
-					if (this.needAuthenticate) {
-						console.log("认证失败次数1：" + this.errorTimes);
-						if (!this.overFailedTimes()) {
-							//修改需要先认证
-							console.log("修改-密码认证：" + this.password.join(''));
-							if ((this.password.join('')) == this.serverPwd) {
-								uni.showToast({
-									title: "手势认证通过",
-									icon: "success",
-									duration: 500
-								});
-								this.text = '手势认证通过';
-								this.pwdError = false;
-
-								setTimeout(res => {
-									this.text = '绘制你的手势图案，至少连接4个点';
-									this.needAuthenticate = false;
-								}, 800);
-							} else {
-								this.certificationFailed();
-							}
-							this.password = [];
-						}
-					} else {
-						//修改密码-第一次绘制(认证通过)
-						this.firstDraw();
-					}
-				}
-
-			},
-			/* 注册、修改-第一次绘制手势 */
-			firstDraw() {
-				if (this.lockType == 1) {
-					console.log("注册-绘制第一次");
-				} else if (this.lockType == 3) {
-					console.log("修改密码-重新设置第一次");
-				}
-				if (this.password.length < 4) {
-					this.text = '至少连接4个点，请重新绘制';
-					this.password = [];
-				} else {
-					this.text = '再次绘制图案进行确认';
-					this.showLockConfirm = true;
-				}
-			},
-			/* 注册、修改-第二次绘制手势 */
-			secondDraw(pwdAgain) {
-				if (this.lockType == 1) {
-					console.log("注册-绘制第二次");
-				} else if (this.lockType == 3) {
-					console.log("修改密码-重新设置第二次");
-				}
-
-				if (this.password.join('') === pwdAgain.join('')) {
-					this.text = '手势设定完成,点击确认完成设定';
-					this.confirmEnable = true;
-					// this.password = []
-				} else {
-					this.text = '两次手势设定不一致'
-					this.confirmEnable = false;
-					this.password = []
-				}
-			},
-			/* 检查认证错误次数 */
-			overFailedTimes() {
-				if (this.errorTimes > this.maxErrorTimes - 1) {
-					uni.showModal({
-						title: "警告",
-						content: "今日认证失败超过限制次数，你的设备已被锁定！",
-						showCancel: false,
-						confirmText: "好哒"
-					});
-					this.password = [];
-					return true;
-				}
-				return false;
-			},
-			/* 手势认证失败 */
-			certificationFailed() {
-				this.text = '手势认证未通过';
-				this.pwdError = true;
-				this.needAuthenticate = true;
-				this.errorTimes++;
-				console.log("errorTimes:" + this.errorTimes + ";maxError:" + this.maxErrorTimes + ";error：" + this.pwdError +
-					";need:" + this.needAuthenticate);
-			},
-			/* 确认手势密码 */
-			async lockConfirm() {
-				if (this.confirmEnable == true) {
-					let safe_lock = this.password.toString().replace(/,/g, '')
-					let res = await this.http.request({
-						api_source: 'app',
-						uri: '/Basic/set_prodect',
-						method: 'POST',
-						device: 'web',
-						data: {
-							uid: this.userInfo.uid,
-							safe_lock
-						}
-					})
-					if (res.data.status == 1) {
-						this.$u.toast('设置成功')
-						this.showSecurity = false;
-					} else {
-						uni.showToast({
-							title: res.data.info,
-							icon: "none"
-						})
-					}
-				}
-			},
-			/* 重绘密码 */
-			resetLock() {
-				this.text = "绘制你的手势图案，至少连接4个点";
-				this.password = [];
-				//引入子组件文件，然后用ref给子组件一个id标识，然后通过this.$refs.组件名.组件方法;调用子组件方法
-				this.$refs.mpvueGestureLock.refesh();
-			}
 		}
 	}
 </script>

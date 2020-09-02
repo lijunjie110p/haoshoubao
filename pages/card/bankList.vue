@@ -45,7 +45,10 @@
 						icon: "none"
 					})
 				}
-				uni.hideLoading()
+				setTimeout(()=>{
+					uni.hideLoading()
+				},1000)
+				
 			},
 			back(id,name) {
 				let pages = getCurrentPages(); //获取所有页面栈实例列表

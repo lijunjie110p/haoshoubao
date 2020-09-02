@@ -8,12 +8,12 @@
 			<view class="slot-btn" @click="upload('y')">
 				<u-image @click="upload('y')" v-if="prosimg==''" width="90rpx" height="90rpx" src="https://lanmao-res.oss-cn-qingdao.aliyuncs.com/static/style/2020-08-04/5f2951f3524e0.png"></u-image>
 				<view v-if="prosimg==''" class="text"><text>正面照片</text></view>
-				<u-image @click="upload('y')" v-if="prosimg!=''" height="330rpx" mode="aspectFit" :src="prosimg"></u-image>
+				<u-image @click="upload('y')" v-if="prosimg!=''"  width="100%" mode="widthFix" :src="prosimg"></u-image>
 			</view>
 			<view class="slot-btn" @click="upload('n')">
 				<u-image @click="upload('n')" v-if="consimg==''" width="90rpx" height="90rpx" src="https://lanmao-res.oss-cn-qingdao.aliyuncs.com/static/style/2020-08-04/5f2951f3524e0.png"></u-image>
 				<view v-if="consimg==''" class="text"><text>背面照片</text></view>
-				<u-image @click="upload('n')" v-if="consimg!=''" height="330rpx" mode="aspectFit" :src="consimg"></u-image>
+				<u-image @click="upload('n')" v-if="consimg!=''"  width="100%" mode="widthFix" :src="consimg"></u-image>
 			</view>
 		</view>
 		<u-gap height="20" bg-color="#F2F2F2"></u-gap>

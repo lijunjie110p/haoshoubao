@@ -57,7 +57,7 @@
 						is_sms: 0
 					}, //通道
 					cashCard: { //储蓄卡
-						bank_icon: ''
+						bank_icon: 'list'
 					},
 					code: ''
 				},
@@ -107,6 +107,17 @@
 		onLoad(parms) {
 			this.card_id = parms.card_id;
 			this.source = parms.source;
+			let _self = this;
+			uni.getLocation({
+				geocode: true,
+				success(res) {
+					_self.formData.region = res.address.province + '-' + res.address.city
+					_self.longitude_latitude = res.latitude + ',' + res.longitude
+				}
+			})
+			this.getCashCard()
+		},
+		onShow() {
 			switch (this.source) {
 				case 'pos':
 					uni.setNavigationBarTitle({
@@ -126,15 +137,6 @@
 				default:
 					break;
 			}
-			let _self = this;
-			uni.getLocation({
-				geocode: true,
-				success(res) {
-					_self.formData.region = res.address.province + '-' + res.address.city
-					_self.longitude_latitude = res.latitude + ',' + res.longitude
-				}
-			})
-			this.getCashCard()
 		},
 		onReady() {
 			this.$refs.uForm.setRules(this.rules);
@@ -275,20 +277,20 @@
 					case 'nfc':
 						this.registeChannel();
 						break;
-					default: 
+					default:
 						break;
 				}
 			},
-			async registeChannel(){
+			async registeChannel() {
 				let res = await this.http.request({
 					api_source: 'app',
 					uri: '/Channel/channel_registe',
 					method: 'POST',
 					device: 'web',
-					data:{
-						uid:this.userInfo.uid,
-						device_location:this.longitude_latitude,
-						channel_id:54
+					data: {
+						uid: this.userInfo.uid,
+						device_location: this.longitude_latitude,
+						channel_id: 54
 					}
 				})
 				if (res.data.status == 1) {
@@ -352,10 +354,16 @@
 								console.log(e.message)
 							});
 					} else {
-						this.$u.toast('收款成功')
-						uni.navigateTo({
-							url: 'record'
-						})
+						if (res.data.body.url) {
+							uni.navigateTo({
+								url: '../public/webView?url=' + encodeURIComponent(res.data.body.url)
+							})
+						} else {
+							this.$u.toast('收款成功')
+							uni.navigateTo({
+								url: 'record'
+							})
+						}
 					}
 
 

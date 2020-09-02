@@ -25,7 +25,7 @@
 		</view>
 		<u-modal v-model="showFaceModel" :show-cancel-button="true" @confirm="inter(1)">
 			<view class="u-padding-30 u-text-center">
-				<view>请录入本人人脸，上传后<text class="u-type-error">不可修改</text></view>
+				<view>请录入本人人脸，<text class="u-type-error">上传后不可修改</text></view>
 			</view>
 		</u-modal>
 		<u-modal v-model="showIdCardModel" :show-cancel-button="true" @confirm="chooseImage">
@@ -33,7 +33,7 @@
 				<view>请上传手持身份证照片，<text class="u-type-error">上传后不可修改</text></view>
 			</view>
 		</u-modal>
-		
+
 		<!-- tabs弹出层 -->
 		<view class="u-abso tabas-panel-alert" :style="{top:alertTop+'px',maxHeight:scrollerHeight+'px'}" v-if="opentbasIcon">
 			<view style="background: #FFFFFF;overflow: hidden;" :animation="alertAnimation">
@@ -282,8 +282,8 @@
 				backCamera: false, //启用后置摄像头
 				logoSrcs: [],
 				showFaceModel: false,
-				showIdCardModel:false,
-				apk_url:'',
+				showIdCardModel: false,
+				apk_url: '',
 			}
 		},
 		onLoad() {
@@ -337,7 +337,7 @@
 		},
 		methods: {
 			...mapMutations(['login']),
-			async bindTaobao(provider) {		//绑定淘宝账号
+			async bindTaobao(provider) { //绑定淘宝账号
 				let e = await this.http.request({
 					api_source: 'shop',
 					uri: '/api/auth/shop_login',
@@ -361,7 +361,7 @@
 					})
 				}
 			},
-			async getNfcApk(){		//获取nfc apk下载链接
+			async getNfcApk() { //获取nfc apk下载链接
 				let res = await this.http.request({
 					api_source: 'app',
 					uri: '/Manage/update_app',
@@ -380,7 +380,7 @@
 					})
 				}
 			},
-			async update() {		//更新版本
+			async update() { //更新版本
 				let that = this;
 				await plus.runtime.getProperty(plus.runtime.appid, async function(inf) {
 					var ver = inf.version,
@@ -415,7 +415,7 @@
 					}
 				})
 			},
-			isLogin() {		//是否登录
+			isLogin() { //是否登录
 				if (!this.hasLogin) {
 					uni.showModal({
 						title: '未登录',
@@ -434,7 +434,7 @@
 					});
 				}
 			},
-			async initData() {			//初始化数据
+			async initData() { //初始化数据
 
 				let res = await this.http.request({
 					api_source: 'shop',
@@ -459,7 +459,7 @@
 				}
 
 			},
-			async getHomeData() {		//获取首页数据
+			async getHomeData() { //获取首页数据
 
 				let e = await this.http.request({
 					api_source: 'shop',
@@ -529,7 +529,7 @@
 					})
 				}
 			},
-			async getTqgData(startTime) {		//获取抢购数据
+			async getTqgData(startTime) { //获取抢购数据
 
 				let tqgdata = await this.http.request({
 					api_source: 'shop',
@@ -551,7 +551,7 @@
 					})
 				}
 			},
-			openTabasAlert() {	//打开分类下拉弹窗
+			openTabasAlert() { //打开分类下拉弹窗
 				this.opentbasIcon = !this.opentbasIcon
 				if (this.opentbasIcon) {
 					this.animation.height("auto").step()
@@ -570,7 +570,7 @@
 				this.mescroll.resetUpScroll();
 				this.mescroll.scrollTo(0)
 			},
-			bannerClick(index) {		//banner点击
+			bannerClick(index) { //banner点击
 				let url = this.home_data.advs[index].url
 				this.openUrl(url);
 			},
@@ -658,7 +658,7 @@
 				}
 			},
 
-			tqgJump(id, url) {		//抢购跳转
+			tqgJump(id, url) { //抢购跳转
 				if (!this.hasLogin) {
 					this.isLogin();
 					return;
@@ -685,7 +685,7 @@
 					})
 				}
 			},
-			tqgClick(index, startTime) {		//抢购标题切换
+			tqgClick(index, startTime) { //抢购标题切换
 				this.tqgIndex = index;
 				if (this.tqgIndex < 2) {
 					this.tqgBtnText = "已抢光"
@@ -699,7 +699,7 @@
 				}
 				this.getTqgData(startTime)
 			},
-			jump(url) {		//路由跳转
+			jump(url) { //路由跳转
 				let _self = this;
 				if (!this.hasLogin) {
 					this.isLogin();
@@ -729,39 +729,24 @@
 					case 'nfc':
 						switch (uni.getSystemInfoSync().platform) {
 							case 'android':
-								if (plus.runtime.isApplicationExist({
-										pname: 'com.imaocn.goodnfc',
-										action: ''
-									})) {
-									this.toNfc()
-								} else {
-									uni.showModal({
-										content: '请下载nfc插件',
-										success() {
-											uni.downloadFile({ //执行下载
-												url: _self.apk_url,
-												success: downloadResult => { //下载成功
-													if (downloadResult.statusCode === 200) {
-														plus.runtime.install( //安装
-															downloadResult.tempFilePath, {
-																force: true
-															},
-															function() {
-																_self.toNfc()
-															},
-															function(e) {
-																// utils.showToast('更新失败');
-															}
-														);
-													}
-												},
-												complete: () => {
-													uni.hideLoading();
+								if (_self.isSupportNfc()) {
+									if (plus.runtime.isApplicationExist({
+											pname: 'com.imaocn.goodnfc',
+											action: ''
+										})) {
+										this.toNfc()
+									} else {
+										uni.showModal({
+											content: '请下载nfc插件',
+											success(res) {
+												if(res.confirm){ 
+													_self.downloadNfcApk()
 												}
-											});
-										}
-									})
+											}
+										})
+									}
 								}
+								
 								break;
 							case 'ios':
 								this.$u.toast('此功能不支持ios系统')
@@ -777,7 +762,35 @@
 					url: url
 				})
 			},
-			isSupportNfc(){		//是否支持nfc功能
+			downloadNfcApk() {
+				let _self = this;
+				uni.showLoading({
+					title:''
+				})
+				uni.downloadFile({ //执行下载
+					url: _self.apk_url,
+					success: downloadResult => { //下载成功
+						uni.hideLoading();
+						if (downloadResult.statusCode === 200) {
+							plus.runtime.install( //安装
+								downloadResult.tempFilePath, {
+									force: true
+								},
+								function() {
+									_self.toNfc()
+								},
+								function(e) {
+									_self.$u.toast('安装失败')
+								}
+							);
+						}
+					},
+					complete: () => {
+						uni.hideLoading();
+					}
+				});
+			},
+			isSupportNfc() { //是否支持nfc功能
 				let main = plus.android.runtimeMainActivity();
 				let NfcAdapter = plus.android.importClass('android.nfc.NfcAdapter');
 				let nfcAdapter = NfcAdapter.getDefaultAdapter(main);
@@ -798,20 +811,17 @@
 					return true;
 				}
 			},
-			toNfc(){		//跳转nfc
-				let _self = this;
-				if(this.isSupportNfc()){
-					if(this.userInfo.hand_idcard){
-						uni.navigateTo({
-							url: '../gathering/gathering?source=nfc'
-						})
-					}else{
-						this.showIdCardModel = true;
-					}
+			toNfc() { //跳转nfc
+				if (this.userInfo.hand_idcard) {
+					uni.navigateTo({
+						url: '../gathering/gathering?source=nfc'
+					})
+				} else {
+					this.showIdCardModel = true;
 				}
 			},
-			chooseImage(){		//拍照
-				let _self  = this; 
+			chooseImage() { //拍照
+				let _self = this;
 				uni.chooseImage({
 					count: 1,
 					sizeType: ['compressed'],
@@ -829,7 +839,7 @@
 							}).catch((err) => {
 								console.log(err)
 							});
-					
+
 						} else {
 							_self.uploadImg(e.tempFilePaths[0])
 						}
@@ -839,7 +849,7 @@
 					}
 				})
 			},
-			async uploadImg(file) {		//上传照片
+			async uploadImg(file) { //上传照片
 				uni.showLoading({
 					mask: true,
 					title: ''
@@ -853,7 +863,7 @@
 						image: file,
 					}
 				})
-			
+
 				if (res.data.status == 1) {
 					this.upladIdCard(res.data.body.pathurl)
 				} else {
@@ -863,7 +873,7 @@
 					})
 				}
 			},
-			async upladIdCard(file) {		//上传身份证
+			async upladIdCard(file) { //上传身份证
 				let res = await this.http.request({
 					api_source: 'app',
 					uri: '/Basic/up_hand_idcard',
@@ -871,7 +881,7 @@
 					device: 'web',
 					data: {
 						uid: this.userInfo.uid,
-						hand_idcard:file
+						hand_idcard: file
 					}
 				})
 				uni.hideLoading()
@@ -881,7 +891,7 @@
 					this.user.hand_idcard = res.data.body.hand_cardid;
 					this.login(this.user)
 					this.$u.toast('上传成功');
-					
+
 				} else {
 					uni.showToast({
 						title: res.data.info,
@@ -889,7 +899,7 @@
 					})
 				}
 			},
-			inter(idx) {			//人脸识别
+			inter(idx) { //人脸识别
 				face.inter(idx);
 			}
 		}

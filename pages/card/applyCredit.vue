@@ -8,7 +8,7 @@
 						<view class="slot-btn" @click="chooseImg">
 							<u-image @click="chooseImg" v-if="forminfo.card_pic==''" width="75rpx" height="75rpx" src="https://lanmao-res.oss-cn-qingdao.aliyuncs.com/static/style/2020-08-04/5f2951f3524e0.png"></u-image>
 							<view v-if="forminfo.card_pic==''" class="text"><text>请上传信用卡正面照片</text></view>
-							<u-image @click="chooseImg" v-if="forminfo.card_pic!=''" height="330rpx" mode="aspectFit" :src="bankimg"></u-image>
+							<u-image @click="chooseImg" v-if="forminfo.card_pic!=''" width="100%" mode="widthFix" :src="bankimg"></u-image>
 						</view>
 						<view class="tips">
 							<view class="u-font-24 u-content-color u-line-1"><text>1.保证照片清晰</text></view>
@@ -20,7 +20,6 @@
 				</u-form-item>
 				<u-form-item label-width="150" label="信用卡号" prop="bank_number">
 					<u-input type="number" v-model="forminfo.bank_number" placeholder="请输入信用卡号"> </u-input>
-					<u-icon @click="chooseImg" slot="right" color="#ababab" size="45" name="camera"></u-icon>
 				</u-form-item>
 				<u-form-item label-width="150" label="开户银行" prop="bank_name">
 					<u-input type="select" @click="showBankList" v-model="forminfo.bank_name" placeholder="请选择开户银行"> </u-input>
@@ -48,7 +47,7 @@
 		<view class="subbtn">
 			<u-button @click="addCard" :hair-line="false" :custom-style="btnStyle">添加</u-button>
 		</view>
-		<u-popup :custom-style="{margin:'30rpx',overflow:'hidden',borderRadius:'20rpx'}" :border-radius="20"
+		<u-popup  :border-radius="20"
 		 :safe-area-inset-bottom="true" v-model="showCvv2" mode="bottom">
 			<view class="u-padding-30">
 				<u-image src="https://lanmao-res.oss-cn-qingdao.aliyuncs.com/static/style/2020-09-01/5f4df6d24e2f7.png" width="100%"
@@ -219,13 +218,13 @@
 					method: 'POST',
 					device: 'web',
 					data: {
-						image: e.tempFilePaths[0],
+						image:filePath,
 					}
 				})
 				if (res.data.status == 1) {
 					_self.forminfo.card_pic = res.data.body.pathurl
 					_self.bankimg = res.data.body.httpurl
-					_self.recognition(e.tempFilePaths[0])
+					_self.recognition(filePath)
 				} else {
 					uni.showToast({
 						title: res.data.info,

@@ -8,7 +8,7 @@
 						<view class="slot-btn" @click="chooseImg">
 							<u-image @click="chooseImg" v-if="forminfo.card_pic==''" width="75rpx" height="75rpx" src="https://lanmao-res.oss-cn-qingdao.aliyuncs.com/static/style/2020-08-04/5f2951f3524e0.png"></u-image>
 							<view v-if="forminfo.card_pic==''" class="text"><text>请上传储蓄卡正面照片</text></view>
-							<u-image @click="chooseImg" v-if="forminfo.card_pic!=''" height="330rpx" mode="aspectFit" :src="bankimg"></u-image>
+							<u-image @click="chooseImg" v-if="forminfo.card_pic!=''" width="100%" mode="widthFix" :src="bankimg"></u-image>
 						</view>
 						<view class="tips">
 							<view class="u-font-24 u-content-color u-line-1"><text>1.保证照片清晰</text></view>

@@ -87,7 +87,7 @@
 			},
 			jump(url) {
 				uni.navigateTo({
-					url: '../public/webView?url=' + url
+					url: '../public/webView?url=' +encodeURIComponent(url+'?uid='+this.userInfo.uid)
 				})
 			}
 		}
