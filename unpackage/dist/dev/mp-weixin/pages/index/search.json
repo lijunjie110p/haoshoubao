@@ -1,0 +1,15 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "black",
+  "bounce": "none",
+  "scrollIndicator": "none",
+  "usingComponents": {
+    "u-navbar": "/components/uview-ui/components/u-navbar/u-navbar",
+    "u-search": "/components/uview-ui/components/u-search/u-search",
+    "u-tabs": "/components/uview-ui/components/u-tabs/u-tabs",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-lazy-load": "/components/uview-ui/components/u-lazy-load/u-lazy-load",
+    "u-tag": "/components/uview-ui/components/u-tag/u-tag",
+    "u-loadmore": "/components/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

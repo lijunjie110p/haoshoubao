@@ -1,0 +1,39 @@
+$gray-bg:#F2F2F2;
+$white-color:#FFF;
+.container{
+	padding: $padding-base;
+	background: #FFFFFF;
+	width: 710rpx;
+}
+.main{
+	width: 750rpx;
+	position: relative;
+}
+.font-blod{
+	font-weight: bold;
+}
+.main-bg{
+    background:$ez-theme-bg
+}
+.main-color{
+	color: $ez-theme-bg;
+}
+.white-color{
+	color: #FFF;
+}
+.white-bg{
+	background-color: $white-color;
+}
+.gray-bg{
+	background: $gray-bg;
+}
+.padding-width-base{
+	padding: $padding-width-base;
+}
+.sub-btn{
+	background: 'linear-gradient(270deg,rgba(255,186,0,1),rgba(255,207,0,1))';
+	height: '90rpx';
+	color: '#FFF';
+	border: 'none';
+	font-size:'36rpx'
+}

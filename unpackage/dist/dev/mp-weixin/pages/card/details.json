@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "卡片详情",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFF",
+  "enablePullDownRefresh": true,
+  "titleNView": {
+    "splitLine": {
+      "color": "#F2F2F2"
+    }
+  },
+  "usingComponents": {
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-line": "/components/uview-ui/components/u-line/u-line",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-modal": "/components/uview-ui/components/u-modal/u-modal"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
+  "bounce": "none",
+  "scrollIndicator": "none",
+  "usingComponents": {
+    "u-navbar": "/components/uview-ui/components/u-navbar/u-navbar",
+    "u-button": "/components/uview-ui/components/u-button/u-button",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-image": "/components/uview-ui/components/u-image/u-image"
+  }
+}

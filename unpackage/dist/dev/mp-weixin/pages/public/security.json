@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "身份认证",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFF",
+  "usingComponents": {
+    "u-divider": "/components/uview-ui/components/u-divider/u-divider",
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-form": "/components/uview-ui/components/u-form/u-form",
+    "u-form-item": "/components/uview-ui/components/u-form-item/u-form-item",
+    "u-input": "/components/uview-ui/components/u-input/u-input",
+    "u-picker": "/components/uview-ui/components/u-picker/u-picker",
+    "u-button": "/components/uview-ui/components/u-button/u-button"
+  }
+}

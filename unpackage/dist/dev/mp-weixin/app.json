@@ -1,0 +1,87 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/find/find",
+    "pages/business/business",
+    "pages/mine/mine",
+    "pages/index/shopDetails",
+    "pages/index/search",
+    "pages/public/login",
+    "pages/public/registe",
+    "pages/public/webView",
+    "pages/mine/qrCode",
+    "pages/business/applyCard",
+    "pages/public/security",
+    "pages/friend/friend",
+    "pages/friend/top",
+    "pages/friend/team",
+    "pages/friend/details",
+    "pages/friend/search",
+    "pages/card/card",
+    "pages/card/applyCash",
+    "pages/card/applyCredit",
+    "pages/card/bankList",
+    "pages/card/details",
+    "pages/business/account",
+    "pages/business/record",
+    "pages/wallet/wallet",
+    "pages/friend/transfer",
+    "pages/wallet/withdraw",
+    "pages/wallet/recharge",
+    "pages/gathering/gathering",
+    "pages/card/cardList",
+    "pages/wallet/bill",
+    "pages/wallet/billDetails",
+    "pages/gathering/performance",
+    "pages/gathering/performanceDetails",
+    "pages/setting/setting",
+    "pages/setting/account",
+    "pages/public/addAccount",
+    "pages/gathering/channel",
+    "pages/gathering/record",
+    "pages/mine/service",
+    "pages/public/fullScreen",
+    "pages/mine/videoList",
+    "pages/gathering/nfc"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "好收宝",
+    "navigationBarBackgroundColor": "#FFBA37",
+    "backgroundColor": "#FFFFFF",
+    "backgroundColorTop": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#999",
+    "selectedColor": "#FFBA37",
+    "fontSize": "13px",
+    "iconWidth": "30px",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "商城",
+        "iconPath": "static/image/shop_n.png",
+        "selectedIconPath": "static/image/shop_y.png"
+      },
+      {
+        "pagePath": "pages/find/find",
+        "text": "分享",
+        "iconPath": "static/image/find_n.png",
+        "selectedIconPath": "static/image/find_y.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "static/image/user_n.png",
+        "selectedIconPath": "static/image/user_y.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "mescroll-body": "/components/mescroll-uni/mescroll-body",
+    "mescroll-uni": "/components/mescroll-uni/mescroll-uni",
+    "mpvue-gesture-lock": "/components/xwa105-gesturePassword/mpvueGestureLock/gestureLocker"
+  },
+  "sitemapLocation": "sitemap89.json"
+}

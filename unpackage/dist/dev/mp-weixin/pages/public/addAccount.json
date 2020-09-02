@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "titleNView": {
+    "splitLine": {
+      "color": "#F2F2F2"
+    }
+  },
+  "usingComponents": {
+    "u-form": "/components/uview-ui/components/u-form/u-form",
+    "u-form-item": "/components/uview-ui/components/u-form-item/u-form-item",
+    "u-input": "/components/uview-ui/components/u-input/u-input",
+    "u-button": "/components/uview-ui/components/u-button/u-button",
+    "u-verification-code": "/components/uview-ui/components/u-verification-code/u-verification-code"
+  }
+}

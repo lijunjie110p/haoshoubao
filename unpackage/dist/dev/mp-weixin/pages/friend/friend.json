@@ -1,0 +1,13 @@
+{
+  "backgroundColorTop": "#FFBA37",
+  "navigationBarTitleText": "好友管理",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-avatar": "/components/uview-ui/components/u-avatar/u-avatar",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-loadmore": "/components/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

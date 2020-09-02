@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "信用卡申请",
+  "transparentTitle": "auto",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-swiper": "/components/uview-ui/components/u-swiper/u-swiper",
+    "u-grid": "/components/uview-ui/components/u-grid/u-grid",
+    "u-grid-item": "/components/uview-ui/components/u-grid-item/u-grid-item",
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap"
+  }
+}

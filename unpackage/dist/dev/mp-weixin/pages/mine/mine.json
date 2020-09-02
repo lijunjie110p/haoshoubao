@@ -1,0 +1,17 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
+  "bounce": "none",
+  "scrollIndicator": "none",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-avatar": "/components/uview-ui/components/u-avatar/u-avatar",
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-line": "/components/uview-ui/components/u-line/u-line",
+    "u-grid": "/components/uview-ui/components/u-grid/u-grid",
+    "u-grid-item": "/components/uview-ui/components/u-grid-item/u-grid-item",
+    "u-popup": "/components/uview-ui/components/u-popup/u-popup"
+  }
+}

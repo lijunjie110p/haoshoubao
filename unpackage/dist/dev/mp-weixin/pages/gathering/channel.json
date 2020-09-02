@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "通道信息",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "titleNView": {
+    "splitLine": {
+      "color": "#F2F2F2"
+    }
+  },
+  "usingComponents": {
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-action-sheet": "/components/uview-ui/components/u-action-sheet/u-action-sheet"
+  }
+}

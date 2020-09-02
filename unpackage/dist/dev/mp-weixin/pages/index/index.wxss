@@ -1,0 +1,311 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+/*uView*/
+.container {
+  padding: 0 20rpx;
+  background: #FFFFFF;
+  width: 710rpx;
+}
+.main {
+  width: 750rpx;
+  position: relative;
+}
+.font-blod {
+  font-weight: bold;
+}
+.main-bg {
+  background: #FFBA37;
+}
+.main-color {
+  color: #FFBA37;
+}
+.white-color {
+  color: #FFF;
+}
+.white-bg {
+  background-color: #FFF;
+}
+.gray-bg {
+  background: #F2F2F2;
+}
+.padding-width-base {
+  padding: 0 30rpx;
+}
+.sub-btn {
+  background: 'linear-gradient(270deg,rgba(255,186,0,1),rgba(255,207,0,1))';
+  height: '90rpx';
+  color: '#FFF';
+  border: 'none';
+  font-size: '36rpx';
+}
+uni-swiper,
+swiper {
+  height: 100%;
+  width: 750rpx;
+}
+.head {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.tabs {
+  background: #FFF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  padding-bottom: 10rpx;
+  height: 80rpx;
+}
+swiper-item {
+  overflow: visible !important;
+}
+.tabs .u-tabs .u-tab-item,
+.tabs .u-tabs {
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.tabas-panel-alert {
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  overflow: scroll;
+  -webkit-overflow-scrolling: auto;
+}
+.topbtn {
+  background: -webkit-linear-gradient(left, #FFCF00, #FFBA00);
+  background: linear-gradient(to right, #FFCF00, #FFBA00);
+}
+.topbtn .u-image {
+  background-color: transparent;
+}
+.topbtn .u-grid-item {
+  background-color: transparent;
+}
+.content {
+  width: 750rpx;
+}
+.banner {
+  padding: 0 20rpx;
+  position: relative;
+}
+.banner:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: -webkit-linear-gradient(left, #FFCF00, #FFBA00);
+  background: linear-gradient(to right, #FFCF00, #FFBA00);
+  height: 245rpx;
+  top: 0;
+  z-index: -2;
+}
+.banner:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 20% 20% 0 0;
+  background: #FFF;
+  height: 100rpx;
+  top: 150rpx;
+  z-index: -1;
+}
+.active {
+  background: #FFE177;
+  padding-top: 20rpx;
+}
+.active .item {
+  width: 375rpx;
+  margin-bottom: 20rpx;
+}
+.tqg {
+  padding: 0 20rpx;
+  background: #FFF;
+}
+.tqg .item {
+  width: 100%;
+  border-radius: 10px;
+  text-align: center;
+}
+.list-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  padding: 20rpx 0;
+}
+.tqg-list {
+  padding: 0 20rpx;
+  background: #FFF;
+}
+.tqg-list-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  border-radius: 5rpx;
+  padding: 25rpx;
+  background: #FFFFFF;
+}
+.tqg-list-item .tqg-list-item-info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+          align-items: flex-start;
+  height: 260rpx;
+  margin-left: 20rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.tqg-list-item .tqg-list-item-info .price {
+  font-size: 42rpx;
+  color: #FFBB00;
+  font-weight: bold;
+}
+.tqg-list-item .tqg-list-item-info .price::before {
+  content: "￥";
+  font-size: 28rpx;
+  color: #FFBB00;
+}
+.tqg-list-item .tqg-list-item-info .price:after {
+  content: '折后';
+  font-size: 24rpx;
+  color: #FFBB00;
+}
+.tqg-list-item .tqg-list-item-info .s-price {
+  color: #999;
+  font-size: 28rpx;
+  text-decoration: line-through;
+}
+.tqg-list-item .tqg-list-item-info .s-price:before {
+  content: "原价";
+  color: #999;
+  font-size: 28rpx;
+}
+.tqg-list-item .tqg-list-item-info .bottom-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  width: 100%;
+}
+.tqg-list-item .tqg-list-item-info .bottom-row button:after {
+  border: none;
+}
+.tqg-list-item:not(:first-child) {
+  border-top: 1px solid #F2F2F2;
+}
+.subClass {
+  width: 100%;
+  background: #FFFFFF;
+}
+.subTabs {
+  margin-top: 20rpx;
+  background: #FFFFFF;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 99;
+  top: 0;
+}
+.panel {
+  background: #F2F2F2;
+}
+.goodsList {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  background: #F2F2F2;
+}
+.goodsList .goodsitem {
+  background: #FFF;
+  margin: 20rpx;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 335rpx;
+}
+.goodsList .goodsitem .pic {
+  height: 335rpx;
+  overflow: hidden;
+}
+.goodsList .goodsitem .pic image {
+  width: 100%;
+  height: auto;
+  will-change: transform;
+}
+.goodsList .goodsitem .info {
+  padding: 20rpx;
+}
+.goodsList .goodsitem .info .price {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #FFBB00;
+}
+.goodsList .goodsitem .info .price:after {
+  content: '卷后';
+  font-size: 24rpx;
+  color: #FFBB00;
+  margin-left: 2px;
+}
+.goodsList .goodsitem .info .s-price {
+  color: #999;
+  font-size: 24rpx;
+  text-decoration: line-through;
+}
+.goodsList .goodsitem .info .lineText {
+  text-decoration: line-through;
+}
+

@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "充值",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-icon": "/components/uview-ui/components/u-icon/u-icon",
+    "u-input": "/components/uview-ui/components/u-input/u-input",
+    "u-line": "/components/uview-ui/components/u-line/u-line",
+    "u-button": "/components/uview-ui/components/u-button/u-button"
+  }
+}

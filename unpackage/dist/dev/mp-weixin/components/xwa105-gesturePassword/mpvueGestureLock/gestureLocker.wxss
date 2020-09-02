@@ -1,0 +1,61 @@
+
+.gesture-lock.data-v-4c44397c {
+	margin: 0 auto;
+	position: relative;
+	box-sizing: border-box;
+	overflow: auto;
+}
+
+/* 9个外圆环 */
+.gesture-lock .cycle.data-v-4c44397c {
+	box-sizing: border-box;
+	position: absolute;
+	border: 0px solid #999999;
+	background-color: translate;
+	border-radius: 50%;
+}
+.gesture-lock .cycle.data-v-4c44397c::after {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 20%;
+	height: 20%;
+	border: 1px solid #999999;
+	background-color: #999999;
+	border-radius: 50%;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%);
+}
+.gesture-lock .cycle.check.data-v-4c44397c:after {
+	content: "";
+	display: block;
+	position: absolute;
+	width: 40%;
+	height: 40%;
+	border: 1px solid #A0A0A0;
+	background-color: #A0A0A0;
+	border-radius: 50%;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	        transform: translate(-50%, -50%);
+}
+
+/* 连接线条 */
+.gesture-lock .line.data-v-4c44397c {
+	height: 0;
+	border-top: 3px solid #4CD964;
+	position: absolute;
+	-webkit-transform-origin: left center;
+	        transform-origin: left center;
+}
+
+/* 密码不一致 */
+.gesture-lock.error .cycle.check.data-v-4c44397c,
+.gesture-lock.error .cycle.check.data-v-4c44397c:after,
+.gesture-lock.error .line.data-v-4c44397c {
+	border-color: #FF0000;
+}
+

@@ -1,0 +1,14 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "我的团队",
+  "navigationBarBackgroundColor": "#FFBA37",
+  "backgroundColorTop": "#FFBA37",
+  "usingComponents": {
+    "u-tabs": "/components/uview-ui/components/u-tabs/u-tabs",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-avatar": "/components/uview-ui/components/u-avatar/u-avatar",
+    "u-loadmore": "/components/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

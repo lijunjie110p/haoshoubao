@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "商品详情",
+  "transparentTitle": "auto",
+  "usingComponents": {
+    "u-swiper": "/components/uview-ui/components/u-swiper/u-swiper",
+    "u-button": "/components/uview-ui/components/u-button/u-button",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-icon": "/components/uview-ui/components/u-icon/u-icon"
+  }
+}

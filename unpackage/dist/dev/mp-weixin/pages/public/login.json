@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "登陆",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "u-form": "/components/uview-ui/components/u-form/u-form",
+    "u-form-item": "/components/uview-ui/components/u-form-item/u-form-item",
+    "u-input": "/components/uview-ui/components/u-input/u-input",
+    "u-button": "/components/uview-ui/components/u-button/u-button",
+    "u-verification-code": "/components/uview-ui/components/u-verification-code/u-verification-code",
+    "u-icon": "/components/uview-ui/components/u-icon/u-icon"
+  }
+}

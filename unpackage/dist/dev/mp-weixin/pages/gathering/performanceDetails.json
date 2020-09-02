@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "业绩详情",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "scrollIndicator": "none",
+  "titleNView": {
+    "splitLine": {
+      "color": "#F2F2F2"
+    }
+  },
+  "usingComponents": {
+    "u-icon": "/components/uview-ui/components/u-icon/u-icon",
+    "u-line": "/components/uview-ui/components/u-line/u-line",
+    "u-avatar": "/components/uview-ui/components/u-avatar/u-avatar",
+    "u-loadmore": "/components/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

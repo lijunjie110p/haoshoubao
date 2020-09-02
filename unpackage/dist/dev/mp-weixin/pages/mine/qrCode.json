@@ -1,0 +1,12 @@
+{
+  "backgroundColorTop": "#FFBA37",
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "推广二维码",
+  "navigationBarBackgroundColor": "#FDA926",
+  "usingComponents": {
+    "u-avatar": "/components/uview-ui/components/u-avatar/u-avatar",
+    "u-button": "/components/uview-ui/components/u-button/u-button",
+    "u-popup": "/components/uview-ui/components/u-popup/u-popup",
+    "u-icon": "/components/uview-ui/components/u-icon/u-icon"
+  }
+}

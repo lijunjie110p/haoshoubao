@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "设置",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "titleNView": {
+    "splitLine": {
+      "color": "#F2F2F2"
+    }
+  },
+  "usingComponents": {
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-switch": "/components/uview-ui/components/u-switch/u-switch",
+    "u-modal": "/components/uview-ui/components/u-modal/u-modal",
+    "u-popup": "/components/uview-ui/components/u-popup/u-popup"
+  }
+}

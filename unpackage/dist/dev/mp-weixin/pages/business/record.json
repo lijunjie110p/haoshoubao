@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "申请记录",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "navigationBarBackgroundColor": "#FFF",
+  "usingComponents": {
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-button": "/components/uview-ui/components/u-button/u-button",
+    "u-line": "/components/uview-ui/components/u-line/u-line"
+  }
+}

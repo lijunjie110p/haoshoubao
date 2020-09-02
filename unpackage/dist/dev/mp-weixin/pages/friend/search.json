@@ -1,0 +1,9 @@
+{
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-avatar": "/components/uview-ui/components/u-avatar/u-avatar"
+  }
+}

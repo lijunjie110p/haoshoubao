@@ -1,0 +1,15 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "好友排行",
+  "transparentTitle": "auto",
+  "navigationBarBackgroundColor": "#E82547",
+  "backgroundColorTop": "#E82547",
+  "usingComponents": {
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-tabs": "/components/uview-ui/components/u-tabs/u-tabs",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-avatar": "/components/uview-ui/components/u-avatar/u-avatar",
+    "u-loadmore": "/components/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "我的卡包",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFF",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-tabs": "/components/uview-ui/components/u-tabs/u-tabs",
+    "u-icon": "/components/uview-ui/components/u-icon/u-icon",
+    "u-image": "/components/uview-ui/components/u-image/u-image"
+  }
+}

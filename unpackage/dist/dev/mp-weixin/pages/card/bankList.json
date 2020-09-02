@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "银行卡列表",
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFF",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-image": "/components/uview-ui/components/u-image/u-image"
+  }
+}

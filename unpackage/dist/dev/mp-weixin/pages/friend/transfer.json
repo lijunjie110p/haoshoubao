@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "转账",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "u-tabs": "/components/uview-ui/components/u-tabs/u-tabs",
+    "u-cell-group": "/components/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell-item": "/components/uview-ui/components/u-cell-item/u-cell-item",
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-input": "/components/uview-ui/components/u-input/u-input",
+    "u-button": "/components/uview-ui/components/u-button/u-button",
+    "u-verification-code": "/components/uview-ui/components/u-verification-code/u-verification-code"
+  }
+}

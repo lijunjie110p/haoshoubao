@@ -1,0 +1,24 @@
+{
+  "navigationBarTitleText": "请选择交易卡",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "titleNView": {
+    "splitLine": {
+      "color": "#F2F2F2"
+    },
+    "buttons": [
+      {
+        "float": "right",
+        "fontSize": "16",
+        "width": "180upx",
+        "text": "添加卡片",
+        "type": "none"
+      }
+    ]
+  },
+  "usingComponents": {
+    "u-icon": "/components/uview-ui/components/u-icon/u-icon",
+    "u-image": "/components/uview-ui/components/u-image/u-image",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap"
+  }
+}

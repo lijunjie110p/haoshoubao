@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "收款记录",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "u-tabs": "/components/uview-ui/components/u-tabs/u-tabs",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-image": "/components/uview-ui/components/u-image/u-image"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "navigationBarTextStyle": "black",
+  "navigationBarBackgroundColor": "#FFF",
+  "navigationBarTitleText": "朋友圈素材",
+  "scrollIndicator": "none",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-avatar": "/components/uview-ui/components/u-avatar/u-avatar",
+    "u-icon": "/components/uview-ui/components/u-icon/u-icon",
+    "u-gap": "/components/uview-ui/components/u-gap/u-gap",
+    "u-popup": "/components/uview-ui/components/u-popup/u-popup",
+    "u-loadmore": "/components/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}
