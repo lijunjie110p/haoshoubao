@@ -44,9 +44,7 @@
 				<view class="goodsDetails">
 					<view class="u-padding-20 u-font-32 ">宝贝详情</view>
 					<view class="u-flex-col">
-						<view class="u-flex-1" v-for="(item,index) in bannerList" :key="index">
-							<image mode="widthFix" :src="item.image"></image>
-						</view>
+						<image v-for="(item,index) in bannerList" :key="index" mode="widthFix" :src="item.image"></image>
 					</view>
 				</view>
 				<u-gap height="100" bg-color="#FFF"></u-gap>
@@ -74,7 +72,7 @@
 				previewPic: [],
 				isqg: '',
 				url: '',
-				appkey:''
+				appkey: ''
 			};
 		},
 		onLoad(option) {
@@ -90,7 +88,7 @@
 		},
 		methods: {
 			async initData(option) {
-				
+
 				if (option.tqg == "1") {
 					let res = await this.http.request({
 						api_source: 'shop',
@@ -165,6 +163,7 @@
 
 			},
 			openUrl(url) {
+				url = 'https:' + url;
 				plug.openurl({
 					url,
 					linkkey: 'taobao',
@@ -196,7 +195,7 @@
 			height: auto;
 		}
 	}
-  
+
 	.roll-bg {
 		margin-top: 20rpx;
 		background-image: url('https://lanmao-res.oss-cn-qingdao.aliyuncs.com/static/style/2020-06-28/5ef84d0cec8e1.png');

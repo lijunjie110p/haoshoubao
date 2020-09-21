@@ -37,6 +37,9 @@
 				key: 'pushState',
 				success: (res) => {
 					that.pushChange(res.data);
+				},
+				fail() {
+					that.pushChange(true);
 				}
 			})
 			uni.getStorage({

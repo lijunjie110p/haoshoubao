@@ -229,6 +229,7 @@
 							rate_id: this.formData.channel.rate_id,
 							amount: this.formData.money,
 							save_id: this.formData.cashCard.card_id,
+							city:this.formData.region
 						}
 					})
 					uni.hideLoading();

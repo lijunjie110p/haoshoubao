@@ -106,8 +106,6 @@ export default{
 		
 	},
 	async updateFace(imgUrl) {			//上传人脸
-		console.log(imgUrl)
-		
 		let res = await http.request({
 			api_source: 'app',
 			uri: '/Face/up_face',
@@ -121,7 +119,7 @@ export default{
 		uni.hideLoading();
 		if (res.data.status == 1) {
 			store.state.userInfo.face_token = res.data.body.face_token;
-			store.mutations.login(store.state.userInfo);
+			store.commit('login',store.state.userInfo);
 		} else {
 			uni.showToast({
 				title: res.data.info,

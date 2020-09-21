@@ -285,7 +285,7 @@
 						card_pic: this.forminfo.card_pic
 					}
 				})
-
+				console.log(res);
 				if (res.data.status == 1) {
 					this.$u.toast('绑卡成功');
 					let pages = getCurrentPages(); //获取所有页面栈实例列表

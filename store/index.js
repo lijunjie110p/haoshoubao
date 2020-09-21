@@ -12,11 +12,11 @@ const store = new Vuex.Store({
 		sonInfo: {},
 		userInfos: [],
 		pushState: true,
-		checkedSecurity:false,
+		checkedSecurity: false,
 		pushCid: '',
 	},
 	mutations: {
-		setSecurity(state, provider){
+		setSecurity(state, provider) {
 			state.checkedSecurity = provider;
 			uni.setStorage({ //缓存用户推送
 				key: 'checkedSecurity',
@@ -48,9 +48,26 @@ const store = new Vuex.Store({
 								var GeTuiSdk = plus.ios.importClass('GeTuiSdk');
 								GeTuiSdk.setBadge(0);
 							}
+							uni.downloadFile({
+								url:msg.payload.sound_url,
+								success(e) {
+									var music = null;
+									music = uni.createInnerAudioContext(); //创建播放器对象
+									music.src = e.tempFilePath; //选择播放的音频
+									music.play(); //执行播放
+								}
+							})
 						})
 						plus.push.addEventListener('receive', function(msg) {
-							console.log("消息：" + msg)
+							uni.downloadFile({
+								url:msg.payload.sound_url,
+								success(e) {
+									var music = null;
+									music = uni.createInnerAudioContext(); //创建播放器对象
+									music.src = e.tempFilePath; //选择播放的音频
+									music.play(); //执行播放
+								}
+							})
 						})
 					}
 				})

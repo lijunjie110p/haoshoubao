@@ -19,10 +19,10 @@
 			</view>
 		</view>
 		<view class="group">
-			<u-cell-group :border="false">
+			<u-cell-group :border="false">  
 				<u-cell-item :title-style="{marginLeft:'20rpx',fontSize:'32rpx'}" @click="jump(item.param_id)" v-for="(item,index) in model"
 				 :key="index" :title="item.param_name"> 
-					<u-image :src="item.param_img" slot="icon" width="45rpx" height="45rpx"></u-image>
+					<u-image :src="item.param_img" slot="icon" width="60rpx" height="60rpx"></u-image>
 				</u-cell-item>
 			</u-cell-group>
 		</view>
@@ -31,7 +31,7 @@
 			<u-cell-group :border="false">
 				<u-cell-item @click="details(item.uid)" :key="index" :arrow="false" :title-style="{marginLeft:'20rpx',fontSize:'32rpx'}" :title="item.realname"
 				 :label="item.group_name" v-for="(item,index) in list">
-					<u-avatar :src="item.avatar" size="120" slot="icon"></u-avatar>
+					<u-avatar :src="item.avatar" size="90" slot="icon"></u-avatar>
 					<view slot="right-icon"><text class="u-font-32">已邀请{{item.invite_count}}人</text></view>
 				</u-cell-item>
 			</u-cell-group>

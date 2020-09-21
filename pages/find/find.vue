@@ -28,7 +28,7 @@
 			</view>
 			<u-gap height="20" bg-color="#F2F2F2"></u-gap>
 		</view>
-		<u-popup  mode="bottom" border-radius="15" v-model="showShare" :closeable="true">
+		<u-popup mode="bottom" border-radius="15" v-model="showShare" :closeable="true">
 			<view class="u-font-36 u-content-color u-padding-top-30 u-text-center">
 				<text>分享至</text></view>
 			<view class="u-padding-30 white-bg u-flex u-row-between u-text-center u-col-center">
@@ -43,7 +43,7 @@
 			</view>
 			<view class="u-padding-30 u-text-center u-border-top" @click="showShare=false"><text class="u-font-36">取消</text></view>
 		</u-popup>
-		<u-loadmore font-size="30" margin-top="20" :load-text="{loadmore:'点击或上拉加载更多',loading: '努力加载中',nomore:'实在没有了'}"
+		<u-loadmore font-size="30" margin-top="20" :load-text="{loadmore:'点击或上拉加载更多',loading: '努力加载中',nomore:'已经到底了~'}"
 		 :status="status" @loadmore="onreachBottom" />
 	</view>
 </template>
@@ -66,11 +66,11 @@
 					h: ''
 				},
 				showShare: false,
-				shareCofig:{}
+				shareCofig: {}
 			};
 		},
 		onLoad() {
-			
+
 		},
 		onShow() {
 			this.page = 1
@@ -135,7 +135,7 @@
 				}
 			},
 			previewImage(current) {
-				if(this.previewPic[current] !=''){
+				if (this.previewPic[current] != '') {
 					uni.previewImage({
 						current,
 						urls: this.previewPic,
@@ -180,28 +180,28 @@
 			},
 			share(type) {
 				let scene = type == 1 ? "WXSceneSession" : "WXSenceTimeline",
-					title = type == 1 ?	this.shareCofig.title: this.shareCofig.content.replace(/<br>/g,',');
-				
+					title = type == 1 ? this.shareCofig.title : this.shareCofig.content.replace(/<br>/g, ',');
+
 				uni.share({
 					provider: 'weixin',
 					title: title,
 					imageUrl: this.shareCofig.headpic,
-					scene:scene,
+					scene: scene,
 					type: 0,
 					href: this.mycode.url,
-					summary: this.shareCofig.content.replace(/<br>/g,','),
+					summary: this.shareCofig.content.replace(/<br>/g, ','),
 					success(e) {
 						uni.showToast({
 							title: '分享成功',
 							position: 'center',
 							icon: 'none'
 						})
-						if(type == 2){
+						if (type == 2) {
 							uni.setClipboardData({
 								data: title,
 								success(e) {
 									uni.showToast({
-										title:'分享内容已粘贴'
+										title: '分享内容已粘贴'
 									})
 								}
 							});
@@ -227,7 +227,7 @@
 					this.isAuditing()
 					return;
 				}
-				
+
 				this.status = 'loading'
 				let res = await this.http.request({
 					api_source: 'app',
@@ -248,7 +248,7 @@
 					}
 					this.previewPic = [];
 					this.mycode = res.data.body.mycode
-					
+
 					for (let j in res.data.body.img_list) {
 						let title = res.data.body.img_list[j].title.replace(/\\n/g, '<br>')
 						res.data.body.img_list[j].headpic = title.split("|")[0]
@@ -264,9 +264,11 @@
 					}
 					for (let j in this.list) {
 						let url = await this.applyWorkMark(j, this.mycode.code_img)
-						this.previewPic.push(url);
+						
+						if (url) {
+							this.previewPic.push(url);
+						}
 					}
-
 				} else {
 					uni.showToast({
 						title: res.data.info,
@@ -297,11 +299,19 @@
 											success: (res1) => {
 												resolve(res1.tempFilePath);
 											},
-											fail: (res1) => {}
+											fail: (res1) => {
+												that.$u.toast(res1)
+											}
 										});
 									});
+								},
+								fail: (res1) => {
+									that.$u.toast(res1)
 								}
 							})
+						},
+						fail: (res1) => {
+							that.$u.toast(res1)
 						}
 					})
 				})

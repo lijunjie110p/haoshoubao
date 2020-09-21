@@ -41,12 +41,13 @@
 		},
 		methods: {
 			async recharge() {
+				let uView = this.$u;
 				if (this.money == '') {
 					this.$u.toast('请输入充值金额')
 					return;
 				}
 				uni.showLoading({
-					title: '正在获取验证码'
+					title: ''
 				})
 				let res = await this.http.request({
 					api_source: 'app',
@@ -60,8 +61,19 @@
 					}
 				})
 				uni.hideLoading();
+				console.log(res)
 				if (res.data.status == 1) {
-					this.$u.toast('充值成功')
+					uni.requestPayment({
+						provider: 'wxpay',
+						orderInfo:res.data.body, 
+						success: function(res) {
+							uView.toast('充值成功')
+						}, 
+						fail: function(err) {
+							uView.toast('支付失败')
+						}
+					}) 
+					
 				} else {
 					uni.showToast({
 						title: res.data.info,

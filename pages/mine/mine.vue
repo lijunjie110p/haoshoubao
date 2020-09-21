@@ -19,8 +19,9 @@
 		<view class="group">
 			<view style="border-radius: 10px;overflow: hidden;">
 				<u-cell-group :border="false">
-					<u-cell-item :border-bottom="false" :title="message.title" :value="message.date">
+					<u-cell-item  :center="true" :border-bottom="false" :title="message.title" :value="message.date">
 						<u-image slot="icon" width="32" height="32" src="https://lanmao-res.oss-cn-qingdao.aliyuncs.com/static/style/2020-07-30/5f228d2e3fb84.png"></u-image>
+						<u-notice-bar @click="noticeClick" type="none"  :volume-icon="false" :more-icon="false" mode="vertical" :list="noticeList"></u-notice-bar>
 					</u-cell-item>
 				</u-cell-group>
 			</view>
@@ -70,51 +71,95 @@
 					realname: '',
 					avatar: require('../../static/image/logo.png')
 				},
+				noticeList:[],
 				status: "未实名认证",
-				message: {
-					title: '',
-					date: ''
-				},
+				message: [],
 				service_model: {},
 				interval: '',
 				maxtime: 300, //倒计时300秒
-				needRz: true
+				needRz: true,
 			};
 		},
 		onLoad() {
 			this.message.date = this.$u.timeFormat(new Date(), 'mm-dd');
 			this.initData();
+			if(this.hasLogin){
+				this.bind_alias();
+			}
+			
 		},
 		onShow() {
 			this.needRz = this.checkedSecurity;
 			this.initData();
-			this.getmessage();
 		},
 		onPullDownRefresh() {
 			this.initData();
 		},
 		computed: {
-			...mapState(['hasLogin', 'userInfo', 'checkedSecurity'])
+			...mapState(['hasLogin', 'userInfo', 'checkedSecurity','pushCid'])
 		},
 		methods: {
 			...mapMutations(['login']),
-			async getmessage() {
+			async bind_alias() {
 				let res = await this.http.request({
 					api_source: 'app',
-					uri: '/Home/notice',
+					uri: '/Member/unipush_bind_alias',
 					method: 'POST',
 					device: 'web',
 					data: {
 						uid: this.userInfo.uid,
+						cliend_id:this.pushCid
 					}
 				})
+
 				if (res.data.status == 1) {
-					// console.log(res.data.body)
+					console.log('绑定别名')
 				} else {
 					uni.showToast({
 						title: res.data.info,
 						icon: "none"
 					})
+				}
+			},
+			async getmessage() {
+				let res = await this.http.request({
+					api_source: 'app',
+					uri: '/Message/message',
+					method: 'POST',
+					device: 'web',
+					data: {
+						uid: this.userInfo.uid
+					}  
+				})
+				if (res.data.status == 1) {
+					this.noticeList = [];
+					this.message = res.data.body
+					for (let i in this.message) {
+						this.noticeList.push(this.message[i].ncontent)
+					}
+				} else {
+					uni.showToast({
+						title: res.data.info,
+						icon: "none"
+					})
+				}
+			},
+			noticeClick(index){
+				uni.navigateTo({
+					url:'../public/webView?url='+encodeURIComponent(this.message[index].url) 
+				})
+				if (plus.os.name.toLowerCase() == 'ios') {
+					//导入ios UIApplication  
+					var UIApplication = plus.ios.import("UIApplication");
+					var app = UIApplication.sharedApplication();
+					//获取应用图标的数量  
+					// var oldNum = app.applicationIconBadgeNumber();  
+					// var newNum = oldNum - 1;  
+					//设置应用图标的数量  
+					plus.runtime.setBadgeNumber(0);
+					//导入个推原生类  
+					var GeTuiSdk = plus.ios.importClass('GeTuiSdk');
+					GeTuiSdk.setBadge(0);
 				}
 			},
 			async initData() {
@@ -131,6 +176,9 @@
 				if (res.data.status == 1) {
 					this.data = res.data.body;
 					this.user = res.data.body.userinfo || {}
+					if(this.user.uid){
+						this.login(this.user)
+					}
 					if (res.data.body.userinfo) {
 						if (this.user.is_auditing == "2") {
 							this.status = "已实名认证"
@@ -167,8 +215,16 @@
 							this.service_model[i].jumpurl = '../card/card'
 						} else if (this.service_model[i].param_id == 118) {
 							this.service_model[i].jumpurl = '../business/applyCard'
+						} else if (this.service_model[i].param_id == 119) {
+							this.service_model[i].jumpurl = '../gathering/record'
 						}
 					}
+					if(this.hasLogin){
+						this.getmessage();
+					}else{
+						this.noticeList = [];
+					}
+					
 				} else {
 					uni.showToast({
 						title: res.data.info,

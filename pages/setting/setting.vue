@@ -12,8 +12,8 @@
 		<u-gap height="20" bg-color="#F6F6F6"></u-gap>
 		<u-cell-group :border="false">
 			<u-cell-item @click="jump('../public/addAccount?type=changeMobile')" :titleStyle="{fontSize:'30rpx'}" title="修改手机"></u-cell-item>
-			<!-- <u-cell-item @click="jump('../public/addAccount?type=changeWx')" :border-bottom="false" :titleStyle="{fontSize:'30rpx'}"
-			 title="更换微信"></u-cell-item> -->
+			<u-cell-item @click="chooseImage" :border-bottom="false" :titleStyle="{fontSize:'30rpx'}"
+			 title="更新NFC手持照片"></u-cell-item>
 		</u-cell-group>
 		<u-gap height="20" bg-color="#F6F6F6"></u-gap>
 		<u-cell-group :border="false">
@@ -29,6 +29,7 @@
 				<view>请录入本人人脸，上传后<text class="u-type-error">不可修改</text></view>
 			</view>
 		</u-modal>
+		<helang-compress ref="helangCompress"></helang-compress>
 	</view>
 </template>
 
@@ -37,10 +38,14 @@
 		mapState,
 		mapMutations
 	} from 'vuex';
+	import helangCompress from '@/components/helang-compress/helang-compress';
 	import face from "@/util/js/face.js"
 	export default {
 		computed: {
 			...mapState(['hasLogin', 'userInfo', 'pushState', 'checkedSecurity'])
+		},
+		components: {
+			helangCompress
 		},
 		data() {
 			return {
@@ -55,7 +60,8 @@
 				showFaceModel: false,
 				checkedSec: false, //安全设置
 				checkLoading: false,
-				controlStatus: false
+				controlStatus: false,
+				user:{}
 			};
 		},
 		onLoad() {
@@ -103,7 +109,7 @@
 			}
 		},
 		methods: {
-			...mapMutations(['logout', 'pushChange', 'setSecurity']),
+			...mapMutations(['login','logout', 'pushChange', 'setSecurity']),
 			inter(idx) {
 				face.inter(idx)
 			},
@@ -206,6 +212,84 @@
 						}
 					}
 				})
+			},
+			chooseImage() { //拍照
+				let _self = this;
+				uni.chooseImage({
+					count: 1,
+					sizeType: ['compressed'],
+					success(e) {
+						const Max_size = 300 * 1024;
+						if (e.tempFiles[0].size >= Max_size) {
+							let qa = (Max_size / e.tempFiles[0].size).toFixed(2) * 100
+							_self.$refs.helangCompress.compress({
+								src: e.tempFilePaths[0],
+								maxSize: 800,
+								fileType: 'jpg',
+								quality: qa
+							}).then((res) => {
+								_self.uploadImg(res)
+							}).catch((err) => {
+								console.log(err)
+							});
+			
+						} else {
+							_self.uploadImg(e.tempFilePaths[0])
+						}
+					},
+					fail(e) {
+						console.log(e)
+					}
+				})
+			},
+			async uploadImg(file) { //上传照片
+				uni.showLoading({
+					mask: true,
+					title: ''
+				})
+				let res = await this.http.uploadFile({
+					api_source: 'app',
+					uri: '/Uploads/image',
+					method: 'POST',
+					device: 'web',
+					data: {
+						image: file,
+					}
+				})
+				if (res.data.status == 1) {
+					this.upladIdCard(res.data.body.pathurl)
+				} else {
+					uni.showToast({
+						title: res.data.info,
+						icon: "none"
+					})
+				}
+			},
+			async upladIdCard(file) { //上传身份证
+				let res = await this.http.request({
+					api_source: 'app',
+					uri: '/Basic/up_hand_idcard',
+					method: 'POST',
+					device: 'web',
+					data: {
+						uid: this.userInfo.uid,
+						hand_idcard: file
+					}
+				})
+				
+				
+				if (res.data.status == 1) {
+					this.user = this.userInfo;
+					this.user.hand_idcard = res.data.body.hand_cardid;
+					this.login(this.user)
+					this.$u.toast('更新成功')
+				} else {
+					uni.showToast({
+						title: '上传失败',
+						icon: "none"
+					})
+				}
+				uni.hideLoading()
 			},
 		}
 	}

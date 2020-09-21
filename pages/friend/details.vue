@@ -73,7 +73,6 @@
 		methods: {
 			...mapMutations(['saveSonInfo']),
 			async initData() {
-
 				let res = await this.http.request({
 					api_source: 'app',
 					uri: '/User/user_firend_info',

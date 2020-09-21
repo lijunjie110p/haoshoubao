@@ -43,7 +43,7 @@
 				page: 1,
 				tabsIndex: 0,
 				tablist: [{
-					group_id:0
+					group_id:'0'
 				}],
 				list: [],
 				data:''
@@ -70,10 +70,6 @@
 				this.tabsIndex = index;
 				this.page = 1;
 				this.list = [];
-				this.initData();
-			},
-			onreachBottom() {
-				this.page++
 				this.initData();
 			},
 			onreachBottom() {

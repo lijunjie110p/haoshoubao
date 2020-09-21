@@ -31,6 +31,7 @@
 					 :default-region="area" v-model="showRegion"></u-picker>
 				</u-form-item>
 			</u-form>
+			<view class="u-font-24 u-margin-top-20 u-type-warning">温馨提示：请谨慎选择注册城市，定位城市选择会影响城主模式收益！</view>
 		</view>
 		<view class="foot">
 			<view>

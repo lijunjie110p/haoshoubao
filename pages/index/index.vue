@@ -168,6 +168,9 @@
 			</view>
 		</mescroll-uni>
 		<helang-compress ref="helangCompress"></helang-compress>
+		<u-popup v-model="showNotice" mode="center" border-radius="10" :closeable="true">
+			<u-image :src="noticeData.img" width="100%" mode="widthFix"></u-image>
+		</u-popup>
 	</view>
 </template>
 
@@ -284,6 +287,8 @@
 				showFaceModel: false,
 				showIdCardModel: false,
 				apk_url: '',
+				showNotice:false,	//显示公告
+				noticeData:{}
 			}
 		},
 		onLoad() {
@@ -294,7 +299,7 @@
 			});
 			// #endif
 			this.height = uni.getSystemInfoSync().windowHeight + 'px'
-			this.getNfcApk();
+			this.getNotice();
 		},
 		computed: { ...mapState(['forcedLogin', 'hasLogin', 'userInfo', 'isBindTaobao'])
 		},
@@ -357,6 +362,26 @@
 				} else {
 					uni.showToast({
 						title: e.data.info,
+						icon: "none"
+					})
+				}
+			},		
+			async getNotice(){	//获取公告
+				let res = await this.http.request({
+					api_source: 'app',
+					uri: '/Manage/hs_start_advert',
+					method: 'POST',
+					device: 'web',
+					data: {}
+				})
+				if (res.data.status == 1) {
+					this.noticeData = res.data.body;
+					if(this.noticeData.url){
+						this.showNotice = true;
+					}
+				} else {
+					uni.showToast({
+						title: res.data.info,
 						icon: "none"
 					})
 				}
@@ -635,14 +660,13 @@
 					this.loginTaobao();
 					return;
 				}
+				url = 'https:' + url;
 				plug.openurl({
 					url,
 					linkkey: 'taobao',
 					appkey: this.appkey,
 					nativeFailedMode: 'download'
-				}, result => {
-
-				})
+				}, result => {})
 			},
 			/*下拉刷新的回调 */
 			downCallback() {
@@ -722,11 +746,13 @@
 						}
 						break;
 					case 'huabei':
-						uni.navigateTo({
-							url: '../gathering/gathering?source=huabei'
-						})
+						this.$u.toast('即将开放，敬请期待')
+						// uni.navigateTo({
+						// 	url: '../gathering/gathering?source=huabei'
+						// })
 						break;
 					case 'nfc':
+						this.getNfcApk();
 						switch (uni.getSystemInfoSync().platform) {
 							case 'android':
 								if (_self.isSupportNfc()) {
@@ -739,14 +765,14 @@
 										uni.showModal({
 											content: '请下载nfc插件',
 											success(res) {
-												if(res.confirm){ 
+												if (res.confirm) {
 													_self.downloadNfcApk()
 												}
 											}
 										})
 									}
 								}
-								
+
 								break;
 							case 'ios':
 								this.$u.toast('此功能不支持ios系统')
@@ -765,7 +791,7 @@
 			downloadNfcApk() {
 				let _self = this;
 				uni.showLoading({
-					title:''
+					title: ''
 				})
 				uni.downloadFile({ //执行下载
 					url: _self.apk_url,
@@ -886,7 +912,6 @@
 				})
 				uni.hideLoading()
 				if (res.data.status == 1) {
-					console.log(res);
 					this.user = this.userInfo;
 					this.user.hand_idcard = res.data.body.hand_cardid;
 					this.login(this.user)
@@ -894,7 +919,7 @@
 
 				} else {
 					uni.showToast({
-						title: res.data.info,
+						title: '上传失败',
 						icon: "none"
 					})
 				}

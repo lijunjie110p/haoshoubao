@@ -17,9 +17,9 @@
 				<view class="popup-title u-text-center u-padding-20"><text class="font-blod u-font-32">选择提现方式</text></view>
 				<u-line length="100%" color="#E6E6E6"></u-line>
 				<u-cell-group :border="false">
-					<u-cell-item @click="selectType(1)" :center="true" :arrow="false" title="提现至微信">
+					<!-- <u-cell-item @click="selectType(1)" :center="true" :arrow="false" title="提现至微信">
 						<u-icon class="u-margin-right-20" color="#00C800" name="weixin-fill" slot="icon" size="60"></u-icon>
-					</u-cell-item>
+					</u-cell-item> -->
 					<u-cell-item @click="selectType(2)" :center="true" :arrow="false" title="提现至银行卡">
 						<u-image class="u-margin-right-20" width="60rpx" height="60rpx" slot="icon" src="https://lmaopay.oss-cn-qingdao.aliyuncs.com/res/yTwoLevelList/276.png"></u-image>
 					</u-cell-item>
@@ -45,7 +45,7 @@
 		</u-cell-group>
 		<view class="u-padding-30 u-flex u-col-center">
 			<u-icon name="error-circle-fill" color="#FFBB00" size="40"></u-icon>
-			<text class="u-line-2 u-font-24 u-type-info u-margin-left-10">提现至银行卡将额外收取3.00元/笔手续费，提现至微信零钱将额外收取2.00元/笔手续费</text>
+			<text class="u-line-2 u-font-24 u-type-info u-margin-left-10">提现至银行卡将额外收取3.00元/笔手续费</text>
 		</view>
 		<view class="subbtn">
 			<u-button @click="withdraw" :hair-line="false" :custom-style="btnStyle">提现</u-button>
@@ -78,7 +78,11 @@
 					fontSize: '36rpx'
 				},
 				showPopup: false,
-				wxconfig:{},
+				wxconfig:{
+					authResult:{
+						openid:''
+					}
+				},
 			};
 		},
 		computed: {
@@ -94,6 +98,8 @@
 				
 				switch (type) {
 					case 1:
+						this.$u.toast('暂不支持提现到微信');
+						return;
 						uni.login({
 							provider:'weixin',
 							success(res) {
@@ -191,6 +197,9 @@
 					this.$u.toast('请输入验证码')
 					return
 				}
+				uni.showLoading({
+					title:''
+				})
 				let res = await this.http.request({
 					api_source: 'app',
 					uri: '/Member/accounts',
@@ -206,9 +215,12 @@
 						openid:this.wxconfig.authResult.openid
 					}
 				})
+				uni.hideLoading()
 				if (res.data.status == 1) {
 					this.$u.toast('提现成功')
-					this.initData();
+					uni.navigateTo({
+						url:'bill?source=bill'
+					})
 				} else {
 					uni.showToast({
 						title: res.data.info,

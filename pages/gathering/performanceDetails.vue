@@ -55,7 +55,6 @@
 			} else {
 				this.send_time = parms.send_date
 			}
-			console.log(this.send_time)
 			this.initData();
 		},
 		onPullDownRefresh() {

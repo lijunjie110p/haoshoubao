@@ -19,7 +19,7 @@
 				},
 				webviewUrl: '',
 				source: '',
-				lastRoute: '', //上个页面路由
+				lastRoute: '', //上个页面路由 
 				lastRouteOptions: '', //上个页面参数
 				pages: [],
 				url: '',
@@ -64,6 +64,7 @@
 				}
 			},
 			async message(event) {
+				let _self = this;
 				if (event.detail.data[0].finish) {
 					this.finishPage();
 				}
@@ -84,26 +85,19 @@
 
 				}
 				if (event.detail.data[0].pay) {
-					let orderInfo = {
-						appid: event.detail.data[0].pay.config.appid,
-						partnerid: event.detail.data[0].pay.config.partnerid,
-						prepayid: event.detail.data[0].pay.config.prepay_id,
-						package: "Sign=WXPay",
-						noncestr: event.detail.data[0].pay.config.noncestr,
-						timestamp: event.detail.data[0].pay.config.timestamp,
-						sign: event.detail.data[0].pay.config.sign
-					}
-					console.log(orderInfo)   
 					uni.requestPayment({
-						provider: 'weixin',
-						orderInfo,
+						provider: 'wxpay',
+						orderInfo:event.detail.data[0].pay.config, 
 						success: function(res) {
-							console.log('success:' + JSON.stringify(res));
-						},
+							_self.$u.toast('支付成功')
+							uni.redirectTo({
+								url:'webView?url='+_self.webviewUrl
+							})
+						}, 
 						fail: function(err) {
-							console.log('fail:' + JSON.stringify(err));
+							_self.$u.toast('支付失败')
 						}
-					})
+					}) 
 				}
 				if (event.detail.data[0].share) {
 					this.showShare = true;
@@ -116,7 +110,7 @@
 					href: this.shareConfig.url,
 					title: this.shareConfig.title,
 					desc: this.shareConfig.content,
-					imgUrl: this.shareConfig.logo
+					imgUrl: this.shareConfig.imgurl
 				};
 				let shareList = [{
 						icon: "https://lanmao-res.oss-cn-qingdao.aliyuncs.com/static/style/2020-08-20/5f3e44b436019.png",
@@ -140,8 +134,9 @@
 							console.log("fail:" + JSON.stringify(err));
 						}
 					};
+					
 					switch (index) {
-						case 0:
+						case 0: 
 							shareObj.provider = "weixin";
 							shareObj.scene = "WXSceneSession";
 							shareObj.type = 0;
@@ -154,7 +149,7 @@
 							shareObj.type = 0;
 							shareObj.imageUrl = shareInfo.imgUrl || "";
 							uni.setClipboardData({
-								data: shareInfo.title,
+								data: shareInfo.desc,
 								complete() {
 									uni.showToast({
 										title: "已复制到剪贴板"

@@ -201,15 +201,10 @@
 				}
 			},
 			toHome(provider) {
-				let pages = getCurrentPages(); //获取所有页面栈实例列表
-				let prevPage = pages[pages.length - 2]; //上一页页面实例
 				this.bindTaobao(provider)
 				this.pushUser(provider)
 				uni.switchTab({
-					url: "../index/index",
-					success() {
-						prevPage.$vm.initData();
-					}
+					url: "../index/index"
 				})
 			},
 			codeChange(text) {

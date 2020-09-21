@@ -2,14 +2,17 @@
     "name" : "好收宝",
     "appid" : "__UNI__EAA1BBE",
     "description" : "",
-    "versionName" : "1.0.2",
+    "versionName" : "1.0.9",
     "versionCode" : "100",
     "transformPx" : false,
-	"networkTimeout":{
-		"uploadFile":20000,
-		"request":20000
-	},
+    "networkTimeout" : {
+        "uploadFile" : 40000,
+        "request" : 40000
+    },
     "app-plus" : {
+        "compatible" : {
+            "ignoreVersion" : true
+        },
         "safearea" : {
             "background" : "#CCCCCC",
             "bottom" : {

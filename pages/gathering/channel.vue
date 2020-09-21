@@ -8,8 +8,10 @@
 				<view class="u-margin-left-30">
 					<view class="u-flex u-row-between u-col-center">
 						<text>{{item.channel_name}}</text>
-						<text v-if="item.is_bind==0 && source!='huabei'" class="main-color">需绑卡验证</text></view>
-					<view class="u-margin-top-10"><text class="u-font-24 u-type-info">{{item.rate_tip}}</text></view>
+						<text v-if="item.is_bind==0 && source!='huabei'" class="main-color">需绑卡验证</text>
+						<text v-if="item.is_bind==2 && source!='huabei'" class="u-margin-left-10 u-type-primary" style="u-type-primary">进件中</text>
+					</view>
+					<view class="u-margin-top-10 u-line-1"><text class="u-font-24 u-type-info">{{item.rate_tip}}</text></view>
 				</view>
 			</view>
 		</view>
@@ -26,7 +28,7 @@
 			return {
 				card_info: {},
 				channel: [],
-				channel_item:{},
+				channel_item: {},
 				source: '',
 				tips: {
 					text: "选择分期"
@@ -41,13 +43,14 @@
 						text: '花呗分期数 X 12期'
 					}
 				],
-				stagesNum:'',
-				show:false,
+				stagesNum: '',
+				show: false,
 			};
 		},
 		onNavigationBarButtonTap(e) {
 			uni.navigateTo({
-				url:'../public/webView?url='+encodeURIComponent('https://h5.huitye.com/App/quotaTable.html?uid='+this.userInfo.uid)
+				url: '../public/webView?url=' + encodeURIComponent('https://h5.huitye.com/App/quotaTable.html?uid=' + this.userInfo
+					.uid)
 			})
 		},
 		onLoad(parms) {
@@ -76,6 +79,9 @@
 						card_id: this.card_info.card_id,
 						channel_type: 'SK'
 					}
+				if (this.source == 'pos') {
+					data.channel_type = 'FACE'
+				}
 				if (this.source == 'huabei') {
 					uri = '/PayBank/tokio_list'
 					data = {
@@ -103,7 +109,8 @@
 						case 'huabei':
 							this.channel = res.data.body.card.tokio_channel_list
 							break;
-						default:
+						default: 
+							
 							this.channel = res.data.body
 							break;
 					}
@@ -149,35 +156,39 @@
 					uni.stopPullDownRefresh();
 					return;
 				}
+				if(item.is_bind == 2 && this.source != 'huabei'){
+					this.$u.toast('进件中！')
+					return;
+				}
 				if (this.source == 'gathering' || this.source == 'pos') {
 					prevPage.$vm.formData.channel = item; //修改上一页面的 channel 参数值为 item
 					uni.navigateBack()
 				}
 				if (this.source == 'huabei') {
-					if(item.is_tokio == 2){
+					if (item.is_tokio == 2) {
 						this.channel_item = item;
 						this.show == true
-					}else{
+					} else {
 						prevPage.$vm.formData.channel = item; //修改上一页面的 channel 参数值为 item
 						uni.navigateBack()
 					}
 				}
 			},
-			stages(index){
+			stages(index) {
 				let pages = getCurrentPages(); //获取所有页面栈实例列表
 				let prevPage = pages[pages.length - 2]; //上一页页面实例
-				if(index == 0){
+				if (index == 0) {
 					this.stagesNum = ''
 				}
-				if(index == 1){
+				if (index == 1) {
 					this.stagesNum = 6
 				}
-				if(index == 2){
+				if (index == 2) {
 					this.stagesNum = 12
 				}
-			
+
 				prevPage.$vm.formData.channel = this.channel_item; //修改上一页面的 channel 参数值为 item
-				prevPage.$vm.stagesNum = this.stagesNum; 
+				prevPage.$vm.stagesNum = this.stagesNum;
 				uni.navigateBack()
 				this.show = false
 			}
