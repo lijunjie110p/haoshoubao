@@ -746,10 +746,10 @@
 						}
 						break;
 					case 'huabei':
-						this.$u.toast('即将开放，敬请期待')
-						// uni.navigateTo({
-						// 	url: '../gathering/gathering?source=huabei'
-						// })
+						// this.$u.toast('即将开放，敬请期待')
+						uni.navigateTo({
+							url: '../gathering/gathering?source=huabei'
+						})
 						break;
 					case 'nfc':
 						this.getNfcApk();

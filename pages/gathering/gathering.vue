@@ -234,7 +234,6 @@
 					})
 					uni.hideLoading();
 					if (res.data.status == 1) {
-						console.log(res.data.body)
 						this.codeinfo = res.data.body.info;
 						this.$u.toast('验证码已发送');
 						this.$refs.uCode.start();
@@ -258,8 +257,12 @@
 					this.$u.toast('请选择入账银行卡')
 					return;
 				}
-				if (this.formData.channel.is_sms == 1 && this.codeinfo == '') {
+				if (this.formData.channel.is_sms == 1 && !this.codeinfo.thpinfo ) {
 					this.$u.toast('请获取验证码')
+					return;
+				}
+				if ( this.formData.code == '' && this.source != 'huabei' && this.formData.channel.is_sms == 1) {
+					this.$u.toast('请输入验证码')
 					return;
 				}
 				switch (this.source) {

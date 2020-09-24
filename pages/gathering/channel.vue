@@ -33,9 +33,7 @@
 				tips: {
 					text: "选择分期"
 				},
-				list: [{
-						text: '不分期'
-					},
+				list: [
 					{
 						text: '花呗分期数 X 6期'
 					},
@@ -167,7 +165,7 @@
 				if (this.source == 'huabei') {
 					if (item.is_tokio == 2) {
 						this.channel_item = item;
-						this.show == true
+						this.show = true
 					} else {
 						prevPage.$vm.formData.channel = item; //修改上一页面的 channel 参数值为 item
 						uni.navigateBack()
@@ -178,15 +176,11 @@
 				let pages = getCurrentPages(); //获取所有页面栈实例列表
 				let prevPage = pages[pages.length - 2]; //上一页页面实例
 				if (index == 0) {
-					this.stagesNum = ''
-				}
-				if (index == 1) {
 					this.stagesNum = 6
 				}
-				if (index == 2) {
+				if (index == 1) {
 					this.stagesNum = 12
 				}
-
 				prevPage.$vm.formData.channel = this.channel_item; //修改上一页面的 channel 参数值为 item
 				prevPage.$vm.stagesNum = this.stagesNum;
 				uni.navigateBack()
