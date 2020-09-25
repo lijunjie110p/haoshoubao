@@ -41,26 +41,27 @@
 					<view class="u-type-info u-font-28 u-margin-top-10"><text>收入￥{{item.add_all}}</text><text v-if="source=='bill'"
 						 class="u-margin-left-20">支出￥{{item.dec_all}}</text></view>
 				</view>
-				<u-cell-group :border="false">
-					<u-cell-item @click="jump(list)" v-for="(list,i) in item.list" :center="true" :arrow="false" :title-style="{marginLeft:'20rpx',fontSize:'32rpx'}">
-						<u-image slot="icon" width="90rpx" height="90rpx" shape="circle" :src="list.icon"></u-image>
-						<view slot="title" class="u-margin-left-20">
+				<view class="u-flex u-col-center item" v-for="(list,i) in item.list" >
+					<u-image  width="90rpx" height="90rpx" shape="circle" :src="list.icon"></u-image>
+					<view @click="jump(list)" class="u-margin-left-30 u-flex-1">
+						<view  class="u-flex u-row-between u-col-center">
 							<view class="u-line-1 u-main-color">
 								<text class="u-font-28" v-if="source=='bill'">{{list.info.info}}</text>
 								<text class="u-font-28" v-if="source=='profit'">{{list.name}}</text></view>
+								<view class="main-color u-font-36 font-blod"><text v-if="list.act_type=='out'">-</text><text v-else>+</text>{{list.amount}}</view>
+						
+						</view>
+						<view  class="u-flex u-row-between u-col-center">
 							<view class="u-font-24 u-type-info">
 								<text>{{list.create_time_date}}</text>
 								<text class="u-margin-left-10" v-if="source=='bill'">{{list.info.state}}</text>
 								<text class="u-margin-left-10" v-if="source=='profit'">{{list.benfit_info}}</text>
 							</view>
-						</view>
-						<view slot="right-icon" class="u-text-right">
-							<view class="main-color u-font-36 font-blod"><text v-if="list.act_type=='out'">-</text><text v-else>+</text>{{list.amount}}</view>
 							<view class="u-main-color u-font-24" v-if="source=='bill'">余额:{{list.balance}}</view>
 							<view class="u-main-color u-font-24 u-line-1" v-if="source=='profit'">{{list.order_amount}}</view>
 						</view>
-					</u-cell-item>
-				</u-cell-group>
+					</view>
+				</view>
 			</view>
 		</mescroll-body>
 	</view>
@@ -283,6 +284,10 @@
 	.list {
 		.group-title {
 			background: #F6F6F6;
+			padding: 20rpx 30rpx;
+		}
+		.item{
+			border-bottom: 1px solid #F2F2F2;
 			padding: 20rpx 30rpx;
 		}
 	}

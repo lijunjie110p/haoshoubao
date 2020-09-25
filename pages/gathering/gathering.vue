@@ -191,7 +191,7 @@
 				});
 			},
 			jump(url) {
-				if (this.source == 'huabei') {
+				if (this.source == 'huabei' && url.indexOf('channel')!=-1) {
 					url = 'channel?source=' + this.source + '&card_id=' + this.formData.cashCard.card_id
 				}
 				uni.navigateTo({
