@@ -168,8 +168,10 @@
 			</view>
 		</mescroll-uni>
 		<helang-compress ref="helangCompress"></helang-compress>
-		<u-popup v-model="showNotice" mode="center" border-radius="10" :closeable="true">
-			<u-image :src="noticeData.img" width="100%" mode="widthFix"></u-image>
+		<u-popup border-radius="20" v-model="showNotice" mode="center" close-icon-color="#FFF"  :closeable="true">
+			<view>
+				<u-image :src="noticeData.param_img" @click="lookNotice" width="560rpx" height="730rpx" ></u-image>
+			</view>
 		</u-popup>
 	</view>
 </template>
@@ -369,14 +371,17 @@
 			async getNotice(){	//获取公告
 				let res = await this.http.request({
 					api_source: 'app',
-					uri: '/Manage/hs_start_advert',
+					uri: '/Manage/update_app',
 					method: 'POST',
 					device: 'web',
-					data: {}
+					data: {
+						type_app: 2
+					}
 				})
 				if (res.data.status == 1) {
-					this.noticeData = res.data.body;
-					if(this.noticeData.url){
+					this.noticeData = res.data.body.activity;
+					console.log(this.noticeData)
+					if(this.noticeData.param_url){
 						this.showNotice = true;
 					}
 				} else {
@@ -926,6 +931,11 @@
 			},
 			inter(idx) { //人脸识别
 				face.inter(idx);
+			},
+			lookNotice(){
+				uni.navigateTo({
+					url:'../public/webView?url='+encodeURIComponent(this.noticeData.param_url)
+				})
 			}
 		}
 	}
