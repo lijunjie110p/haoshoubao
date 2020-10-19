@@ -61,8 +61,8 @@
 					}
 				})
 				uni.hideLoading();
-				console.log(res)
 				if (res.data.status == 1) {
+					console.log(res.data.body)
 					uni.requestPayment({
 						provider: 'wxpay',
 						orderInfo:res.data.body, 

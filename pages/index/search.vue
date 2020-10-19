@@ -37,6 +37,10 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -44,6 +48,7 @@
 				subTabsIndex: 0,
 				status: 'loadmore',
 				condition: '',
+				appkey:'',
 				subTabs: [{
 						title: '综合',
 						sort: ''
@@ -61,9 +66,13 @@
 				page: 1,
 			};
 		},
+		computed: { ...mapState(['forcedLogin', 'hasLogin', 'userInfo', 'isBindTaobao'])
+		},
 		onReachBottom() {
-
 			this.loadMore();
+		},
+		onLoad(parms) {
+			this.appkey = parms.appkey
 		},
 		methods: {
 			inputCondition(condition) {
@@ -136,13 +145,26 @@
 			//查看商品详情
 			lookDetails(item) {
 				if (item.coupon_amount == 0) {
-					this.openUrl(item.url, 'taobao:')
+					this.openUrl(item.url)
 				} else {
 					uni.setStorageSync('item', JSON.stringify(item))
 					uni.navigateTo({
 						url: 'shopDetails?tqg=0&id=' + item.item_id + '&nick=' + item.nick
 					})
 				}
+			},
+			openUrl(url) {
+				if (!this.hasLogin) {
+					this.isLogin();
+					return;
+				}
+				url = 'https:' + url;
+				plug.openurl({
+					url,
+					linkkey: 'taobao',
+					appkey: this.appkey,
+					nativeFailedMode: 'download'
+				}, result => {})
 			},
 		}
 	}

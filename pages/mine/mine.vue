@@ -26,7 +26,7 @@
 				</u-cell-group>
 			</view>
 			<view class="card" @click="jump('../wallet/wallet')">
-				<view class="title">我的钱包</view>
+				<view class="title u-flex u-row-between u-col-center"><text>我的钱包</text><text class="u-font-28 main-color">{{data.city_hint}}</text></view>
 				<u-line color="#E2E2E2" />
 				<view class="u-flex u-padding-30 u-row-between u-col-center u-text-center">
 					<view>

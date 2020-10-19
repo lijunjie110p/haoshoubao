@@ -306,7 +306,15 @@
 		computed: { ...mapState(['forcedLogin', 'hasLogin', 'userInfo', 'isBindTaobao'])
 		},
 		onNavigationBarSearchInputClicked(e) {
-			this.jump('search');
+			if (!this.hasLogin) {
+				this.isLogin();
+				return;
+			}
+			if (!this.isBindTaobao) {
+				this.loginTaobao();
+				return;
+			}
+			this.jump('search?appkey='+this.appkey);
 		},
 		onNavigationBarButtonTap(e) {
 			this.jump('../mine/service');
@@ -380,8 +388,7 @@
 				})
 				if (res.data.status == 1) {
 					this.noticeData = res.data.body.activity;
-					console.log(this.noticeData)
-					if(this.noticeData.param_url){
+					if(this.noticeData.param_state == '1'){
 						this.showNotice = true;
 					}
 				} else {

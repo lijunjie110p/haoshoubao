@@ -20,7 +20,7 @@
 		<u-gap height="20" bg-color="#F2F2F2"></u-gap>
 		<view class="list">
 			<u-cell-group :border="false">
-				<u-cell-item @click="details(item.uid)" :center="true" :key="index" :arrow="false" :title-style="{marginLeft:'20rpx',fontSize:'32rpx'}" :title="item.nickname"
+				<u-cell-item @click="details(item.uid)" :center="true" :key="index" :arrow="false" :title-style="{marginLeft:'20rpx',fontSize:'32rpx'}" :title="item.realname"
 				 :label="item.group_name" v-for="(item,index) in list">
 					<u-avatar :src="item.avatar" size="120" slot="icon"></u-avatar>
 					<view slot="right-icon"><text class="u-font-32">已邀请{{item.sort_count||0}}人</text></view>

@@ -164,8 +164,21 @@
 				}
 			},
 			async transfer() {
-				if (!this.ruid) {
+				
+				if (!this.ruid  && this.tabsIndex == 0) {
 					this.$u.toast('请选择好友')
+					return
+				}else if(this.tabsIndex == 1 ){
+					if(this.son_info.realname == ''){
+						this.$u.toast('请输入对方姓名')
+						return
+					}else if(this.son_info.mobile == ''){
+						this.$u.toast('请输入对方电话')
+						return
+					}
+				}
+				if(this.money == ''){
+					this.$u.toast('请输入转账金额')
 					return
 				}
 				let res = await this.http.request({
