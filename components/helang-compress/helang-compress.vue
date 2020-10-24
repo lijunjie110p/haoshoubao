@@ -1,6 +1,7 @@
 <template>
 	<view class="compress">
 		<canvas :style="{ width: canvasSize.width,height: canvasSize.height}" canvas-id="myCanvas"></canvas>
+		<canvas :style="{ width: canvasSize.width,height: canvasSize.height}" canvas-id="myCanvas2"></canvas>
 	</view>
 </template>
 
@@ -53,7 +54,14 @@
 					
 					this.$nextTick(() => {
 						setTimeout(() => {
-							const ctx = uni.createCanvasContext('myCanvas', this);
+							var ctx = '',canvasId;
+							if(params.type == 'n'){
+								canvasId = 'myCanvas2'
+								ctx = uni.createCanvasContext('myCanvas2', this);
+							}else{
+								canvasId = 'myCanvas'
+								 ctx = uni.createCanvasContext('myCanvas', this);
+							}
 							ctx.drawImage(info.path, 0, 0, uni.upx2px(width), uni.upx2px(height));
 							ctx.draw(false, () => {
 								uni.canvasToTempFilePath({
@@ -63,7 +71,7 @@
 									height: uni.upx2px(height),
 									destWidth: width,
 									destHeight: height,
-									canvasId: 'myCanvas',
+									canvasId: canvasId,
 									fileType: params.fileType || 'jpg',
 									quality: params.quality || 0.9,
 									success: (res) => {

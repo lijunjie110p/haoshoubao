@@ -180,7 +180,8 @@
 								src: e.tempFilePaths[0],
 								maxSize: 800,
 								fileType: 'jpg',
-								quality: qa
+								quality: qa,
+								type:parms,
 							}).then((res) => {
 								_self.uploadImg(parms, res)
 							}).catch((err) => {
